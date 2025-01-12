@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MEDEV_fin_TP" default="build" basedir=".">
+    <description>TP final de MEDEV</description>
+    
+    <!-- 
+    Initialize the build process.
+    - 'init' target is responsible for loading properties and displaying basic project information.
+    -->
+    <target name="init" description="Initialize the process">
+        <!-- Load properties from the build.properties file -->
+        <property file="build.properties" />
+
+        <!-- Create the directories if they do not already exist -->
+        <mkdir dir="${src.main.dir}" />
+        <mkdir dir="${src.test.dir}" />
+        <mkdir dir="${javadoc.dir}" />
+        <mkdir dir="${test.report.dir}" />
+        <mkdir dir="${jar.dir}" />
+
+        <!-- Echo various directory paths used in the build -->
+        <echo message="Main source directory is ${src.main.dir}" />
+        <echo message="Test source directory is ${src.test.dir}" />
+        <echo message="Javadoc directory is ${javadoc.dir}" />
+		<echo message="Tests report directory is ${test.report.dir}" />
+		<echo message="Jar output directory is ${jar.dir}" />
+    </target>
+
+    <!-- 
+    Compile the main source code.
+    - This target depends on 'init' to ensure that all properties are loaded before proceeding.
+    - Creates the build directory if it doesn't exist and compiles the main Java classes.
+    -->
+    <target name="compile-main" description="Compiling main classes" depends="init">
+        <!-- Create the build directory if it does not already exist -->
+        <mkdir dir="${build.dir}" />
+
+        <!-- Compile Java files in the main source directory -->
+        <javac srcdir="${src.main.dir}" destDir="${build.dir}" includeAntRunTime="false">
+            <classpath>
+                <!-- Include dependencies (JAR files) in the classpath -->
+                <fileset dir="${dependencies.dir}">
+                    <include name="**/*.jar"/> <!-- Include all JAR files in the dependencies directory -->
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+
+    <!-- 
+    Compile the test source code.
+    - This target depends on 'init' to initialize properties.
+    - Similar to 'compile-main', but compiles test classes from the test source directory.
+    -->
+    <target name="compile-test" description="Compile test classes" depends="init">
+        <!-- Create the build directory if it doesn't already exist -->
+        <mkdir dir="${build.dir}" /> 
+
+        <!-- Compile test Java files -->
+        <javac srcdir="${src.test.dir}" destDir="${build.dir}" includeAntRunTime="false">
+            <classpath>
+                <!-- Include dependencies (JAR files) in the classpath -->
+                <fileset dir="${dependencies.dir}">
+                    <include name="**/*.jar"/> <!-- Include all JAR files in the dependencies directory -->
+                </fileset>
+            </classpath> 
+        </javac>
+    </target>
+
+    <!-- 
+    Run tests using JUnit.
+    - This target depends on both 'compile-main' and 'compile-test' to ensure that both the main code and test code are compiled before running the tests.
+    - Creates a directory for test results.
+    - Executes the tests using JUnit Launcher.
+    -->
+    <target name="run-test" description="Run test" depends="compile-main,compile-test">
+        <!-- Create the directory for test results -->
+        <mkdir dir="${test.results.dir}" />
+
+        <!-- Run JUnit tests -->
+        <junitlauncher>
+            <classpath path="${build.dir}" /> <!-- Add compiled classes to the classpath -->
+
+            <!-- Specify test classes -->
+            <testclasses outputdir="${test.results.dir}">
+                <fileset dir="${build.dir}">
+                    <include name="**/*Test.class"/> <!-- Include only test classes ending in 'Test' -->
+                </fileset>
+
+                <!-- Set a listener to output results and logs in the legacy-xml format -->
+                <listener type="legacy-xml" sendSysOut="true" sendSysErr="true"/>
+            </testclasses>
+        </junitlauncher>
+    </target>
+
+    <!-- 
+    Generate the test report.
+    - This target depends on 'run-test' to ensure tests are executed before generating the report.
+    - The report is generated in both XML (JUnit report format) and HTML (formatted view) formats.
+    -->
+    <target name="report-test" description="Generate the report of the tests" depends="run-test">
+        <!-- Create the directory for the test report -->
+        <mkdir dir="${test.report.dir}" />
+
+        <!-- Generate JUnit-style reports -->
+        <junitreport todir="${test.report.dir}">
+            <fileset dir="${test.results.dir}">
+                <include name="TEST-*.xml"/> <!-- Look for the test result XML files -->
+            </fileset>
+            <!-- Generate HTML report -->
+            <report format="frames" todir="${test.report.dir}"/>
+        </junitreport>
+    </target>
+
+    <!-- 
+    Build the final application (JAR file).
+    - This target depends on 'compile-main' to ensure the main source is compiled before creating the JAR.
+    - Creates the JAR file in the specified dir with a specified main class.
+    -->
+    <target name="build" description="Build the application" depends="compile-main">
+        <!-- Compile the main classes again (could be optimized to avoid recompiling) -->
+        <javac srcdir="${src.main.dir}" destDir="${build.dir}" includeAntRunTime="false">
+        </javac>
+
+        <!-- Create the directory for the JAR file if it doesn't exist -->
+        <mkdir dir="${jar.dir}" />
+
+        <!-- Create the JAR file -->
+        <jar destfile="${jar.dir}/${jar.name}" basedir="${build.dir}">
+            <manifest>
+                <!-- Set the Main-Class attribute in the JAR's manifest file -->
+                <attribute name="Main-Class" value="${jar.mainclass}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- 
+    Generate Javadoc for the project.
+    - This target depends on 'init' to initialize the necessary properties.
+    - Creates the Javadoc in the specified dir.
+    -->
+    <target name="javadoc" description="Create the JavaDoc for the project" depends="init">
+        <!-- Create the Javadoc directory if it doesn't exist -->
+        <mkdir dir="${javadoc.dir}" />
+
+        <!-- Generate Javadoc from the main source code -->
+        <javadoc sourcepath="${src.main.dir}" destdir="${javadoc.dir}"></javadoc>
+    </target>
+</project>
