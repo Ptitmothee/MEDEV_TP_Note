@@ -1,6 +1,6 @@
 public class Pion {
-    public static final  boolean NOIR = False;
-    public static final boolean BLANC = True;
+    public static final  boolean NOIR = false;
+    public static final boolean BLANC = true;
 
     private boolean couleur;
 
