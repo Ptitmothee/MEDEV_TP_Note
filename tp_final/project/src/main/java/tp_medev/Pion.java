@@ -1,3 +1,5 @@
+package tp_medev;
+
 public class Pion {
     public static final  boolean NOIR = false;
     public static final boolean BLANC = true;
@@ -7,6 +9,7 @@ public class Pion {
     private int x;
     private int y;
 
+    public Pion() {}
 
     public Pion(boolean couleur, int x, int y) {
         this.setCouleur(couleur);
@@ -37,5 +40,4 @@ public class Pion {
     public void setY(int y) {
         this.y = y;
     }
-
 }
