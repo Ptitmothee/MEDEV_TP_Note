@@ -60,7 +60,7 @@ public class Plateau {
         logger.info(result);
     }
 
-    public List<int[]> casesDispo(Joueur player){
+    public ArrayList<int[]> casesDispo(Joueur player){
         boolean couleurEnnemi = !player.getCouleur();
         ArrayList<int[]> casesJouables = new ArrayList<>();
 
