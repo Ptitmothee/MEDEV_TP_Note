@@ -66,27 +66,27 @@ public class Plateau {
 
         for (int i=0; i<8; i++){
             for (int j=0; j<8; j++){
-                Pion caseActu = plateau[i][j];
-                if (caseActu != null && caseActu.couleur == couleurEnnemi){
+                Pion caseActu = this.getCase(i, j);
+                if (caseActu != null && caseActu.getCouleur() == couleurEnnemi){
 
-                    if (i-1>=0 && plateau[i-1][j]==null && !casesJouables.contains(new int[] {i-1,j})){
+                    if (i-1>=0 && this.getCase(i-1, j)==null && !casesJouables.contains(new int[] {i-1,j})){
                         casesJouables.add(new int[] {i-1,j});
                     }
 
-                    if (i+1<8 && plateau[i+1][j]==null && !casesJouables.contains(new int[] {i+1,j})){
+                    if (i+1<8 && this.getCase(i+1, j)==null && !casesJouables.contains(new int[] {i+1,j})){
                         casesJouables.add(new int[] {i+1,j});
                     }
 
-                    if (j-1>=0 && plateau[i][j-1]==null && !casesJouables.contains(new int[] {i,j-1})){
+                    if (j-1>=0 && this.getCase(i, j-1)==null && !casesJouables.contains(new int[] {i,j-1})){
                         casesJouables.add(new int[] {i,j-1});
                     }
 
-                    if (j+1<8 && plateau[i][j+1]==null && !casesJouables.contains(new int[] {i,j+1})){
+                    if (j+1<8 && this.getCase(i, j+1)==null && !casesJouables.contains(new int[] {i,j+1})){
                         casesJouables.add(new int[] {i,j+1});
                     }
                 }
             }
-            return casesJouables;
         }
     }
+    return casesJouables;
 }
