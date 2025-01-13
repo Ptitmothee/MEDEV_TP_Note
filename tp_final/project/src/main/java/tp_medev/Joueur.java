@@ -1,17 +1,23 @@
+package tp_medev;
+
+import java.util.logging.Logger;
+
 public class Joueur {
     private boolean couleur;
 
+    Logger logger = Logger.getLogger(getClass().getName());
+
     public Joueur(String choix){
         try{
-            if (choix=="blanc"){
+            if (choix.equals("blanc")){
                 this.couleur = true;
             }
-            else if (choix=="noir"){
+            else if (choix.equals("noir")){
                 this.couleur = false;
             }
         }
         catch (Exception e){
-            System.out.println("Ce n'est pas un choix possible, veuillez choisir entre blanc ou noir");
+            logger.info("Ce n'est pas un choix possible, veuillez choisir entre blanc ou noir");
         }
     }
 
