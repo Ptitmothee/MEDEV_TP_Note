@@ -16,13 +16,19 @@
         <mkdir dir="${javadoc.dir}" />
         <mkdir dir="${test.report.dir}" />
         <mkdir dir="${jar.dir}" />
+        <mkdir dir="${dependencies.dir}" />
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${test.results.dir}" />
 
         <!-- Echo various directory paths used in the build -->
         <echo message="Main source directory is ${src.main.dir}" />
-        <echo message="Test source directory is ${src.test.dir}" />
-        <echo message="Javadoc directory is ${javadoc.dir}" />
-		<echo message="Tests report directory is ${test.report.dir}" />
+        <echo message="Build directory with classes is ${build.dir}" />
+        <echo message="Dependencies directory is ${dependencies.dir}" />
 		<echo message="Jar output directory is ${jar.dir}" />
+        <echo message="Javadoc directory is ${javadoc.dir}" />
+        <echo message="Test source directory is ${src.test.dir}" />
+		<echo message="Tests report directory is ${test.report.dir}" />
+        <echo message="Tests results directory is ${build.dir}" />
     </target>
 
     <!-- 
@@ -31,9 +37,6 @@
     - Creates the build directory if it doesn't exist and compiles the main Java classes.
     -->
     <target name="compile-main" description="Compiling main classes" depends="init">
-        <!-- Create the build directory if it does not already exist -->
-        <mkdir dir="${build.dir}" />
-
         <!-- Compile Java files in the main source directory -->
         <javac srcdir="${src.main.dir}" destDir="${build.dir}" includeAntRunTime="false">
             <classpath>
@@ -51,9 +54,6 @@
     - Similar to 'compile-main', but compiles test classes from the test source directory.
     -->
     <target name="compile-test" description="Compile test classes" depends="init">
-        <!-- Create the build directory if it doesn't already exist -->
-        <mkdir dir="${build.dir}" /> 
-
         <!-- Compile test Java files -->
         <javac srcdir="${src.test.dir}" destDir="${build.dir}" includeAntRunTime="false">
             <classpath>
@@ -72,9 +72,6 @@
     - Executes the tests using JUnit Launcher.
     -->
     <target name="run-test" description="Run test" depends="compile-main,compile-test">
-        <!-- Create the directory for test results -->
-        <mkdir dir="${test.results.dir}" />
-
         <!-- Run JUnit tests -->
         <junitlauncher>
             <classpath path="${build.dir}" /> <!-- Add compiled classes to the classpath -->
@@ -97,9 +94,6 @@
     - The report is generated in both XML (JUnit report format) and HTML (formatted view) formats.
     -->
     <target name="report-test" description="Generate the report of the tests" depends="run-test">
-        <!-- Create the directory for the test report -->
-        <mkdir dir="${test.report.dir}" />
-
         <!-- Generate JUnit-style reports -->
         <junitreport todir="${test.report.dir}">
             <fileset dir="${test.results.dir}">
@@ -138,9 +132,6 @@
     - Creates the Javadoc in the specified dir.
     -->
     <target name="javadoc" description="Create the JavaDoc for the project" depends="init">
-        <!-- Create the Javadoc directory if it doesn't exist -->
-        <mkdir dir="${javadoc.dir}" />
-
         <!-- Generate Javadoc from the main source code -->
         <javadoc sourcepath="${src.main.dir}" destdir="${javadoc.dir}"></javadoc>
     </target>
