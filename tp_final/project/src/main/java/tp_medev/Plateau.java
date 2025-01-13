@@ -37,6 +37,11 @@ public class Plateau {
         return this.getPlateau()[x][y];
     }
 
+    /**
+     * Permet d'afficher le plateau de jeau dans le terminal, la lettre B correnspond aux pions blancs et N aux pions noirs
+     * @param coord1
+     * @param coord2
+     */
     public void affiche() {
         Pion pion;
         String result;
@@ -60,6 +65,11 @@ public class Plateau {
         logger.info(result);
     }
 
+    /**
+     * Permet de trouver toutes les cases où le joueur peut placer un pion
+     * @param player
+     * @return
+     */
     public List<int[]> casesDispo(Joueur player){
         boolean couleurEnnemi = !player.getCouleur();
         ArrayList<int[]> casesJouables = new ArrayList();
@@ -90,9 +100,14 @@ public class Plateau {
         return casesJouables;
     }
 
+        /**
+         * Permet de changer la couleur entre les pions de coordonnées coord1 et coord2, selon les regles du othello, donc en ligne, en colonne ou en diagonale
+         * @param coord1
+         * @param coord2
+         */
     public void changeCouleur(int[] coord1, int[] coord2){
-        if(coord1[0]!=coord2[0] || coord1[0]!=coord2[0] || (coord1[0]!=coord2[0] && coord1[1]!=coord2[1])){
-            System.out.println("Impossible, ce n'est pas une ligne ni une colonne");
+        if(coord1[0]!=coord2[0] || coord1[0]!=coord2[0] || coord1[0]-coord2[0]==coord1[1]-coord2[1] || (coord1[0]!=coord2[0] && coord1[1]!=coord2[1])){
+            System.out.println("Impossible, ce n'est pas une ligne ni une colonne ni une diagonale");
         }
         else{
             if (coord1[0]==coord2[0]){
@@ -128,7 +143,33 @@ public class Plateau {
                     this.setCase(pionChange.setCouleur(!pionChange.getCouleur));
                 }
             }
-            
+            else if (coord1[0]-coord2[0]==coord1[1]-coord2[1]){
+                if (coord1[0]<coord2[0]){
+                    int[] debut = coord1;
+                    int[] fin = coord2;
+                }
+                else{
+                    int[] debut = coord2;
+                    int[] fin = coord1;
+                }
+
+                if (debut[1]>fin[1]){
+                    for (int k = 0; k<fin[0]-(debut[0]+1); k++){
+                        Pion pionChange = this.getCase(debut[0]+(k+1), debut[1]-(k+1));
+                        this.setCase(pionChange.setCouleur(!pionChange.getCouleur));
+                    }
+                }
+                else if (debut[1]<fin[1]){
+                    for (int k = 0; k<fin[0]-(debut[0]+1); k++){
+                        Pion pionChange = this.getCase(debut[0]+(k+1), debut[1]+(k+1));
+                        this.setCase(pionChange.setCouleur(!pionChange.getCouleur));
+                    }
+                }
+            }
         }
+    }
+
+    public void pionPlace(Joueur player, int[] coordPionPlace){
+        
     }
 }
