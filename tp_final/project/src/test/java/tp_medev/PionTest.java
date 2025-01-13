@@ -19,7 +19,7 @@ public class PionTest {
 		boolean couleur = true;
 		p.setCouleur(couleur);
 
-		assertEquals(p.getCouleur(), couleur)
+		assertEquals(p.getCouleur(), couleur);
 	}
 
 	@Test
@@ -37,7 +37,7 @@ public class PionTest {
 		int x = 123;
 		p.setX(x);
 
-		assertEquals(p.getX(), x)
+		assertEquals(p.getX(), x);
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public class PionTest {
 		int y = 123;
 		p.setY(y);
 
-		assertEquals(p.getY(), y)
+		assertEquals(p.getY(), y);
 	}
 
 }
