@@ -1,7 +1,7 @@
 package tp_medev;
 
 import java.util.logging.Logger;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Plateau {
     private Pion[][] plateau;
@@ -61,32 +61,74 @@ public class Plateau {
     }
 
     public List<int[]> casesDispo(Joueur player){
-        boolean couleurEnnemi = !couleurJoueur;
-        List<int[]> casesJouables = new List();
+        boolean couleurEnnemi = !player.getCouleur();
+        ArrayList<int[]> casesJouables = new ArrayList();
 
         for (int i=0; i<8; i++){
             for (int j=0; j<8; j++){
-                Pion caseActu = plateau[i][j];
-                if (caseActu != null && caseActu.couleur == couleurEnnemi){
+                Pion caseActu = this.getCase(i, j);
+                if (caseActu != null && caseActu.getCouleur() == couleurEnnemi){
 
-                    if (i-1>=0 && plateau[i-1][j]==null && !casesJouables.contains(new int[] {i-1,j})){
+                    if (i-1>=0 && this.getCase(i-1, j)==null && !casesJouables.contains(new int[] {i-1,j})){
                         casesJouables.add(new int[] {i-1,j});
                     }
 
-                    if (i+1<8 && plateau[i+1][j]==null && !casesJouables.contains(new int[] {i+1,j})){
+                    if (i+1<8 && this.getCase(i+1, j)==null && !casesJouables.contains(new int[] {i+1,j})){
                         casesJouables.add(new int[] {i+1,j});
                     }
 
-                    if (j-1>=0 && plateau[i][j-1]==null && !casesJouables.contains(new int[] {i,j-1})){
+                    if (j-1>=0 && this.getCase(i, j-1)==null && !casesJouables.contains(new int[] {i,j-1})){
                         casesJouables.add(new int[] {i,j-1});
                     }
 
-                    if (j+1<8 && plateau[i][j+1]==null && !casesJouables.contains(new int[] {i,j+1})){
+                    if (j+1<8 && this.getCase(i, j+1)==null && !casesJouables.contains(new int[] {i,j+1})){
                         casesJouables.add(new int[] {i,j+1});
                     }
                 }
             }
-            return casesJouables;
+        }
+        return casesJouables;
+    }
+
+    public void changeCouleur(int[] coord1, int[] coord2){
+        if(coord1[0]!=coord2[0] || coord1[0]!=coord2[0] || (coord1[0]!=coord2[0] && coord1[1]!=coord2[1])){
+            System.out.println("Impossible, ce n'est pas une ligne ni une colonne");
+        }
+        else{
+            if (coord1[0]==coord2[0]){
+                int i=coord1[0];
+
+                if (coord1[1]>coord2[1]){
+                    int[] debut = coord2;
+                    int[] fin = coord1;
+                }
+                else{
+                    int[] debut = coord1;
+                    int[] fin = coord2;
+                }
+
+                for (int k=debut[1]; k<fin[1]-1; k++){
+                    Pion pionChange = this.getCase(i, k+1);
+                    this.setCase(pionChange.setCouleur(!pionChange.getCouleur));
+                }
+            }
+            else if (coord1[1]==coord2[1]){
+                int j=coord1[1];
+
+                if (coord1[0]>coord2[0]){
+                    int[] debut = coord2;
+                    int[] fin = coord1;
+                }
+                else{
+                    int[] debut = coord1;
+                    int[] fin = coord2;
+                }
+                for (int k=debut[0]; k<fin[0]-1; k++){
+                    Pion pionChange = this.getCase(k+1, j);
+                    this.setCase(pionChange.setCouleur(!pionChange.getCouleur));
+                }
+            }
+            
         }
     }
 }
