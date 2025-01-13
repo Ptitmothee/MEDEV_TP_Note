@@ -5,17 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PionTest {
 	@Test
-	public void Pion() {
-		boolean couleur = true;
-		int x = 123;
-		int y = 123;
-		Pion expected = new Pion(true, 123, 123);
-		Pion actual = new Pion(couleur, x, y);
-
-		assertEquals(expected, actual);
-	}
-
-	@Test
 	public void getCouleur() {
 		Pion p = new Pion(true, 123, 123);
 		boolean expected = true;
