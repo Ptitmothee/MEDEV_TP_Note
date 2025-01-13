@@ -27,6 +27,6 @@ public class Plateau {
     }
 
     public Pion getCase(int x, int y) {
-        return this.getPlateau()[x][y]
+        return this.getPlateau()[x][y];
     }
 }
