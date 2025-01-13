@@ -25,6 +25,10 @@ public class Plateau {
         this.plateau = plateau;
     }
 
+    public Pion getCase(int x, int y) {
+        return this.getPlateau()[x][y];
+    }
+
     public void setCase(Pion pion) {
         this.plateau[pion.getX()][pion.getY()] = pion;
     }
@@ -100,11 +104,11 @@ public class Plateau {
         return casesJouables;
     }
 
-        /**
-         * Permet de changer la couleur entre les pions de coordonnées coord1 et coord2, selon les regles du othello, donc en ligne, en colonne ou en diagonale
-         * @param coord1
-         * @param coord2
-         */
+    /**
+     * Permet de changer la couleur entre les pions de coordonnées coord1 et coord2, selon les regles du othello, donc en ligne, en colonne ou en diagonale
+     * @param coord1
+     * @param coord2
+     */
     public void changeCouleur(int[] coord1, int[] coord2){
         if(coord1[0]!=coord2[0] || coord1[0]!=coord2[0] || coord1[0]-coord2[0]==coord1[1]-coord2[1] || (coord1[0]!=coord2[0] && coord1[1]!=coord2[1])){
             System.out.println("Impossible, ce n'est pas une ligne ni une colonne ni une diagonale");

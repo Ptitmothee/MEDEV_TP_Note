@@ -1,18 +1,9 @@
+import tp_medev.*;
+
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PionTest {
-	@Test
-	public void Pion() {
-		boolean couleur = true;
-		int x = 123;
-		int y = 123;
-		Pion expected = new Pion(true, 123, 123);
-		Pion actual = new Pion(couleur, x, y);
-
-		assertEquals(expected, actual);
-	}
-
 	@Test
 	public void getCouleur() {
 		Pion p = new Pion(true, 123, 123);
@@ -24,9 +15,11 @@ public class PionTest {
 
 	@Test
 	public void setCouleur() {
-		Pion p = new Pion(true, 123, 123);
+		Pion p = new Pion(false, 123, 123);
 		boolean couleur = true;
 		p.setCouleur(couleur);
+
+		assertEquals(p.getCouleur(), couleur);
 	}
 
 	@Test
@@ -40,9 +33,11 @@ public class PionTest {
 
 	@Test
 	public void setX() {
-		Pion p = new Pion(true, 123, 123);
+		Pion p = new Pion(true, 0, 123);
 		int x = 123;
 		p.setX(x);
+
+		assertEquals(p.getX(), x);
 	}
 
 	@Test
@@ -56,9 +51,11 @@ public class PionTest {
 
 	@Test
 	public void setY() {
-		Pion p = new Pion(true, 123, 123);
+		Pion p = new Pion(true, 123, 0);
 		int y = 123;
 		p.setY(y);
+
+		assertEquals(p.getY(), y);
 	}
 
 }
