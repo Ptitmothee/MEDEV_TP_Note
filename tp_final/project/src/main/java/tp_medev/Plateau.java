@@ -87,6 +87,6 @@ public class Plateau {
                 }
             }
         }
+        return casesJouables;
     }
-    return casesJouables;
 }
