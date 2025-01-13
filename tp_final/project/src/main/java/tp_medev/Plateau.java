@@ -1,7 +1,7 @@
 package tp_medev;
 
 import java.util.logging.Logger;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Plateau {
     private Pion[][] plateau;
@@ -62,7 +62,7 @@ public class Plateau {
 
     public List<int[]> casesDispo(Joueur player){
         boolean couleurEnnemi = !player.getCouleur();
-        List<int[]> casesJouables = new List();
+        ArrayList<int[]> casesJouables = new ArrayList<>();
 
         for (int i=0; i<8; i++){
             for (int j=0; j<8; j++){
