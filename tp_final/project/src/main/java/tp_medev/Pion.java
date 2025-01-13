@@ -9,9 +9,9 @@ public class Pion {
 
 
     public Pion(boolean couleur, int x, int y) {
-        setCouleur(couleur);
-        setX(x);
-        setY(y);
+        this.setCouleur(couleur);
+        this.setX(x);
+        this.setY(y);
     }
 
     public boolean getCouleur() {
