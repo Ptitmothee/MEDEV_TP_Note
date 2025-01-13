@@ -64,7 +64,7 @@ jobs:
         working-directory: tp_final/
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.projectKey=Ptitmothee_MEDEV_TP_Note \
-          -Dsonar.java.binaries=project/build/tp_medev \
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          -Dsonar.projectKey=Ptitmothee_MEDEV_TP_Note
+          -Dsonar.java.binaries=project/build/tp_medev
           -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
