@@ -1,5 +1,11 @@
+package tp_medev;
+
+import java.util.logging.Logger;
+
 public class Plateau {
     private Pion[][] plateau;
+
+    Logger logger = Logger.getLogger(getClass().getName());
 
     public Plateau() {
         this.setPlateau(new Pion[8][8]);
@@ -28,5 +34,28 @@ public class Plateau {
 
     public Pion getCase(int x, int y) {
         return this.getPlateau()[x][y];
+    }
+
+    public void affiche() {
+        Pion pion;
+        String result;
+        StringBuilder bld = new StringBuilder();
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+                pion = this.getCase(i, j);
+                if (pion == null) {
+                    bld.append(".");
+                } else {
+                    if (pion.getCouleur()) {
+                        bld.append("B");
+                    } else {
+                        bld.append("N");
+                    }     
+                }
+            }
+            bld.append("\n");
+        }
+        result = bld.toString();
+        logger.info(result);
     }
 }
