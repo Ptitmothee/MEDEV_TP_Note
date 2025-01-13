@@ -133,6 +133,10 @@
     -->
     <target name="javadoc" description="Create the JavaDoc for the project" depends="init">
         <!-- Generate Javadoc from the main source code -->
-        <javadoc sourcepath="${src.main.dir}" destdir="${javadoc.dir}"></javadoc>
+        <javadoc sourcepath="src" destdir="doc">
+            <fileset dir="src" defaultexcludes="yes">
+                <include name="**"/>
+            </fileset>
+        </javadoc>
     </target>
 </project>
