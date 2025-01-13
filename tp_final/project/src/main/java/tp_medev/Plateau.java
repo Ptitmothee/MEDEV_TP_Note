@@ -61,7 +61,7 @@ public class Plateau {
     }
 
     public List<int[]> casesDispo(Joueur player){
-        boolean couleurEnnemi = !couleurJoueur;
+        boolean couleurEnnemi = !player.getCouleur();
         List<int[]> casesJouables = new List();
 
         for (int i=0; i<8; i++){
