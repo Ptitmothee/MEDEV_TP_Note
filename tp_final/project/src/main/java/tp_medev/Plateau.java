@@ -40,8 +40,9 @@ public class Plateau {
         Pion pion;
         String result;
         StringBuilder bld = new StringBuilder();
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
+        for (int i = 0; i < 8; i++) {
+            bld.append("\n");
+            for (int j = 0; j < 8; j++) {
                 pion = this.getCase(i, j);
                 if (pion == null) {
                     bld.append(".");
@@ -53,7 +54,6 @@ public class Plateau {
                     }     
                 }
             }
-            bld.append("\n");
         }
         result = bld.toString();
         logger.info(result);
