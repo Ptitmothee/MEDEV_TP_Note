@@ -4,7 +4,10 @@ public class Plateau {
     public Plateau() {
         this.setPlateau(new Pion[8][8]);
 
-        this.setCase()
+        this.setCase(Pion.BLANC, 3, 3);
+        this.setCase(Pion.NOIR, 4, 3);
+        this.setCase(Pion.NOIR, 3, 4);
+        this.setCase(Pion.BLANC, 4, 4);
     }
 
     public Pion[][] getPlateau() {
