@@ -1,5 +1,3 @@
 *.vscode
 lib/
 docs/
-build/
-apps/
