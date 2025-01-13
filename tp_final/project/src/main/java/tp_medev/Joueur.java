@@ -1,7 +1,7 @@
 public class Joueur {
     private boolean couleur;
 
-    public Joueur(string choix){
+    public Joueur(String choix){
         try{
             if (choix=="blanc"){
                 this.couleur = true;
@@ -19,11 +19,11 @@ public class Joueur {
         this.couleur = choix;
     }
 
-    public getCouleur(){
+    public boolean getCouleur(){
         return this.couleur;
     }
 
-    public setCouleur(boolean nvlCouleur){
+    public void setCouleur(boolean nvlCouleur){
         this.couleur = nvlCouleur;
     }
 }

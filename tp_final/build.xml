@@ -2,6 +2,25 @@
 <project name="MEDEV_fin_TP" default="build" basedir=".">
     <description>TP final de MEDEV</description>
     
+    <target name="download-junit" description="Download JUnit JARs if not present">
+        <mkdir dir="project/lib/junit" />
+        <get src="https://repo1.maven.org/maven2/org/junit/jupiter/junit-jupiter-api/5.10.0/junit-jupiter-api-5.10.0.jar"
+            dest="project/lib/junit/junit-jupiter-api-5.10.0.jar"
+            skipexisting="true" />
+        <get src="https://repo1.maven.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.10.0/junit-jupiter-engine-5.10.0.jar"
+            dest="project/lib/junit/junit-jupiter-engine-5.10.0.jar"
+            skipexisting="true" />
+        <get src="https://repo1.maven.org/maven2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar"
+            dest="project/lib/junit/apiguardian-api-1.1.2.jar"
+            skipexisting="true" />
+        <get src="https://repo1.maven.org/maven2/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar"
+            dest="project/lib/junit/opentest4j-1.2.0.jar"
+            skipexisting="true" />
+        <get src="https://repo1.maven.org/maven2/org/junit/platform/junit-platform-commons/1.10.0/junit-platform-commons-1.10.0.jar"
+            dest="project/lib/junit/junit-platform-commons-1.10.0.jar"
+            skipexisting="true" />
+    </target>
+
     <!-- 
     Initialize the build process.
     - 'init' target is responsible for loading properties and displaying basic project information.
@@ -29,6 +48,9 @@
         <echo message="Test source directory is ${src.test.dir}" />
 		<echo message="Tests report directory is ${test.report.dir}" />
         <echo message="Tests results directory is ${build.dir}" />
+
+        <!-- Add Junit5 to the project-->
+        <antcall target="download-junit"/>
     </target>
 
     <!-- 
@@ -58,7 +80,7 @@
         <javac srcdir="${src.test.dir}" destDir="${build.dir}" includeAntRunTime="false">
             <classpath>
                 <!-- Include dependencies (JAR files) in the classpath -->
-                <fileset dir="${dependencies.dir}">
+                <fileset dir="${dependencies.dir}/junit">
                     <include name="**/*.jar"/> <!-- Include all JAR files in the dependencies directory -->
                 </fileset>
             </classpath> 
