@@ -1,6 +1,7 @@
 package tp_medev;
 
 import java.util.logging.Logger;
+import java.util.List;
 
 public class Plateau {
     private Pion[][] plateau;
@@ -57,5 +58,35 @@ public class Plateau {
         }
         result = bld.toString();
         logger.info(result);
+    }
+
+    public List<int[]> casesDispo(Joueur player){
+        boolean couleurEnnemi = !couleurJoueur;
+        List<int[]> casesJouables = new List();
+
+        for (int i=0; i<8; i++){
+            for (int j=0; j<8; j++){
+                Pion caseActu = plateau[i][j];
+                if (caseActu != null && caseActu.couleur == couleurEnnemi){
+
+                    if (i-1>=0 && plateau[i-1][j]==null && !casesJouables.contains(new int[] {i-1,j})){
+                        casesJouables.add(new int[] {i-1,j});
+                    }
+
+                    if (i+1<8 && plateau[i+1][j]==null && !casesJouables.contains(new int[] {i+1,j})){
+                        casesJouables.add(new int[] {i+1,j});
+                    }
+
+                    if (j-1>=0 && plateau[i][j-1]==null && !casesJouables.contains(new int[] {i,j-1})){
+                        casesJouables.add(new int[] {i,j-1});
+                    }
+
+                    if (j+1<8 && plateau[i][j+1]==null && !casesJouables.contains(new int[] {i,j+1})){
+                        casesJouables.add(new int[] {i,j+1});
+                    }
+                }
+            }
+            return casesJouables;
+        }
     }
 }
